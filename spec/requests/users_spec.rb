@@ -1,0 +1,16 @@
+require 'rails_helper'
+
+RSpec.describe "Users", type: :request do
+  describe "GET /new" do
+    it "returns http signup" do
+      get signup_path
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'Sign up | Ruby on Rails Tutorial Sample Appが含まれること' do
+      get signup_path
+      expect(response.body).to include full_title('Sign up')
+    end
+  end
+
+end
