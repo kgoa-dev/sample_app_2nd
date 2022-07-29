@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "UserSpecs", type: :system do
+RSpec.describe 'UserSpecs', type: :system do
   before do
     driven_by(:rack_test)
   end
@@ -13,7 +15,7 @@ RSpec.describe "UserSpecs", type: :system do
         fill_in 'Name', with: ''
         fill_in 'Email', with: 'user@invlid'
         fill_in 'Password', with: 'foo'
-        fill_in 'Confirmation', with: 'bar'
+        fill_in 'Password confirmation', with: 'bar'
         click_button 'Create my account'
 
         # have_selector = 特定の要素がページ上に存在するか

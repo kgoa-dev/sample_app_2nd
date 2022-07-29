@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ApplicationHelper, type: :helper do
@@ -12,7 +14,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 
     context '引数がなかった場合' do
       it 'ベースタイトルのみが返ること' do
-        expect(full_title).to eq "#{base_title}"
+        expect(full_title).to eq base_title.to_s
       end
     end
   end
