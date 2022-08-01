@@ -6,15 +6,15 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'bcrypt', '3.1.13'
 gem 'bootsnap', '1.10.3', require: false
 gem 'bootstrap-sass', '3.4.1'
+gem 'bootstrap-will_paginate', '1.0.0'
+gem 'faker', '2.20.0'
 gem 'jbuilder',   '2.9.1'
 gem 'puma',       '4.3.6'
 gem 'rails',      '6.0.4'
 gem 'sass-rails', '5.1.0'
 gem 'turbolinks', '5.2.0'
 gem 'webpacker',  '4.0.7'
-gem 'faker',      '2.20.0'
-gem 'will_paginate',           '3.3.1'
-gem 'bootstrap-will_paginate', '1.0.0'
+gem 'will_paginate', '3.3.1'
 
 group :development, :test do
   gem 'byebug',  '11.0.1', platforms: %i[mri mingw x64_mingw]

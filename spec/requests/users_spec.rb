@@ -66,6 +66,11 @@ RSpec.describe 'Users', type: :request do
                   password_confirmation: 'password' } }
       end
 
+      before do
+        ActionMailer::Base.deliveries.clear
+        log_in user
+      end
+
       it '登録されること' do
         expect do
           post users_path, params: user_params
@@ -76,7 +81,7 @@ RSpec.describe 'Users', type: :request do
       it 'users/showにリダイレクトされること' do
         post users_path, params: user_params
         user = User.last
-        expect(response).to redirect_to user
+        expect(response).to redirect_to root_url
         # post users_path後にリダイレクトが行われるかどうか
       end
 
@@ -89,11 +94,20 @@ RSpec.describe 'Users', type: :request do
         post users_path, params: user_params
         expect(logged_in?).to be_truthy
       end
+
+      it 'メールが1件存在すること' do
+        post users_path, params: user_params
+        expect(ActionMailer::Base.deliveries.size).to eq 1
+      end
+
+      it '登録時点ではactivateされていないこと' do
+        post users_path, params: user_params
+        expect(User.last).to_not be_activated
+      end
     end
   end
 
   describe 'get /users/{id}/edit' do
-
     it 'タイトルがEdit user | Ruby on Rails Tutorial Sample Appであること' do
       log_in user
       get edit_user_path(user)
@@ -193,7 +207,7 @@ RSpec.describe 'Users', type: :request do
 
       it '未ログインユーザはログインページにリダイレクトされること' do
         patch user_path(user), params: { user: { name: user.name,
-                                           email: user.email } }
+                                                 email: user.email } }
         expect(response).to redirect_to login_path
       end
     end
@@ -214,7 +228,7 @@ RSpec.describe 'Users', type: :request do
 
     it 'admin属性は更新できないこと' do
       # userはこの後adminユーザになるので違うユーザにしておく
-      log_in user = FactoryBot.create(:archer)
+      log_in user = FactoryBot.create(:lana)
       expect(user).to_not be_admin
 
       patch user_path(user), params: { user: { password: 'password',
@@ -227,13 +241,13 @@ RSpec.describe 'Users', type: :request do
 
   describe 'DELETE /users/{id}' do
     let!(:user) { FactoryBot.create(:user) }
-    let(:other_user) { FactoryBot.create(:archer) }
+    let(:other_user) { FactoryBot.create(:other_user) }
 
     context '未ログインの場合' do
       it '削除できないこと' do
-        expect {
+        expect do
           delete user_path(user)
-        }.to_not change(User, :count)
+        end.to_not change(User, :count)
       end
 
       it 'ログインページにリダイレクトすること' do
@@ -245,9 +259,9 @@ RSpec.describe 'Users', type: :request do
     context 'adminユーザでない場合' do
       it '削除できないこと' do
         log_in other_user
-        expect {
+        expect do
           delete user_path(user)
-        }.to_not change(User, :count)
+        end.to_not change(User, :count)
       end
 
       it 'rootにリダイレクトすること' do

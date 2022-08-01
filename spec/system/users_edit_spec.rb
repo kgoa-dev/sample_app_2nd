@@ -9,7 +9,7 @@ RSpec.describe 'UsersEdits', type: :system do
     login_as(user)
     click_on 'Account'
     click_on 'Setting'
-    fill_in 'Name', with: ' '
+    fill_in 'Name', with: 'aaa'
     fill_in 'Email', with: 'user@invalid'
     fill_in 'Password', with: 'foo'
     fill_in 'Password confirmation', with: 'bar'
@@ -24,7 +24,7 @@ RSpec.describe 'UsersEdits', type: :system do
     login_as(user)
     click_on 'Account'
     click_on 'Setting'
-    fill_in 'Name', with: 'Foo Bar'
+    fill_in 'Name', with: 'FooBar'
     fill_in 'Email', with: 'foo@bar.com'
     fill_in 'Password', with: ''
     fill_in 'Password confirmation', with: ''
