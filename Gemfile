@@ -15,6 +15,9 @@ gem 'sass-rails', '5.1.0'
 gem 'turbolinks', '5.2.0'
 gem 'webpacker',  '4.0.7'
 gem 'will_paginate', '3.3.1'
+gem 'active_storage_validations', '0.8.2'
+gem 'image_processing',           '1.12.2'
+gem 'mini_magick',                '4.9.5'
 
 group :development, :test do
   gem 'byebug',  '11.0.1', platforms: %i[mri mingw x64_mingw]

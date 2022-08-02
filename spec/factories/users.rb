@@ -20,6 +20,15 @@ FactoryBot.define do
     activated_at { Time.zone.now }
   end
 
+  factory :archer, class: User do
+    name { 'Sterling Archer' }
+    email { 'duchess@example.gov' }
+    password { 'password' }
+    password_confirmation { 'password' }
+    activated { true }
+    activated_at { Time.zone.now }
+  end
+
   factory :lana, class: User do
     name { 'Lana Kane' }
     email { 'hands@example.gov' }
